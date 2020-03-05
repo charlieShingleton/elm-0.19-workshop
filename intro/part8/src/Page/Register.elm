@@ -166,10 +166,6 @@ update msg model =
                    let-expression. What are their types? What are the types the
                    `Http.post` function is looking for?
                 -}
-                request : Http.Request Viewer
-                request =
-                    Debug.todo "Call Http.post to represent a POST to /api/users"
-
                 {- 👉 TODO: Use Http.send to turn the request we just defined
                    into a Cmd for `update` to execute.
 
@@ -182,7 +178,8 @@ update msg model =
                 -}
                 cmd : Cmd Msg
                 cmd =
-                    Cmd.none
+                    Http.post "/api/users" requestBody responseDecoder
+                        |> Http.send CompletedRegister
             in
             ( { model | problems = [] }, cmd )
 
